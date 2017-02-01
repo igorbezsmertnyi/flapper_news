@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: flapper_news
+  pool: 5
+  username: Igor
+  password: template1
+  host: localhost
