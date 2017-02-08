@@ -1,6 +1,6 @@
 app.controller('MainCtrl', ['$scope', 'posts',
   function ($scope, posts) {
-    $scope.posts = posts.posts.data
+    $scope.posts = posts.posts
 
     console.log($scope.posts);
 
@@ -8,14 +8,15 @@ app.controller('MainCtrl', ['$scope', 'posts',
       if(!$scope.title || $scope.title === '') { return; }
       posts.create({
         title: $scope.title,
-        link: $scope.link
+        link: $scope.link,
+        upvote: 0
       });
       $scope.title = '';
       $scope.link = '';
     };
 
     $scope.incrementUpvotes = function(post) {
-      post.upvotes += 1;
+      posts.upvote(post);
     };
   }
 ]);
