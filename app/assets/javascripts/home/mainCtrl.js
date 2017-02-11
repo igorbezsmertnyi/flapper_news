@@ -2,17 +2,17 @@ app.controller('MainCtrl', ['$scope', 'posts',
   function ($scope, posts) {
     $scope.posts = posts.posts
 
-    console.log($scope.posts)
+    console.log($scope.posts);
 
     $scope.addPost = function(){
-      let data = {
+      if(!$scope.title || $scope.title === '') { return; }
+      posts.create({
         title: $scope.title,
         link: $scope.link,
-        upvotes: 0
-      }
-      if(!$scope.title || $scope.title === '') { return }
-      posts.create(data)
-      location.reload()
+        upvote: 0
+      });
+      $scope.title = '';
+      $scope.link = '';
     };
 
     $scope.incrementUpvotes = function(post) {
