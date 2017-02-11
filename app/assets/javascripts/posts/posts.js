@@ -1,12 +1,14 @@
-app.factory('posts', ['$http', function($http) {
+app.factory('posts', ['$http', '$timeout', function($http, $timeout) {
     var o = {
       posts: []
     }
 
     o.getAll = () => {
       return $http.get('/posts.json').then((data) => {
-        angular.copy(data.data, o.posts)
-      }) || {}
+        $timeout(() => {
+          angular.copy(data.data, o.posts)
+        })
+      })
     }
 
     o.create = (post) => {
@@ -17,7 +19,7 @@ app.factory('posts', ['$http', function($http) {
 
     o.upvote = (post) => {
       return $http.put(`/posts/${post.id}/upvote.json`).then((data) => {
-        post.upvotes += 1
+        post.upvotes++
       })
     }
 
@@ -35,7 +37,7 @@ app.factory('posts', ['$http', function($http) {
 
     o.upvoteComment = (post, comment) => {
       return $http.put(`/posts/${post.id}/comments/${comment.id}/upvote.json`).then((data) => {
-        comment.upvote += 1
+        comment.upvotes++
       })
     }
 
