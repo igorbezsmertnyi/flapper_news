@@ -1,18 +1,22 @@
-app.controller('MainCtrl', ['$scope', 'posts',
-  function ($scope, posts) {
+app.controller('MainCtrl', ['$scope', 'posts', '$window', 'user',
+  function ($scope, posts, $window, user) {
     $scope.posts = posts.posts
+    $scope.user = user.user
 
-    console.log($scope.posts);
+    console.log($scope.user);
 
     $scope.addPost = function(){
-      if(!$scope.title || $scope.title === '') { return; }
-      posts.create({
+      let data = {
         title: $scope.title,
         link: $scope.link,
-        upvote: 0
-      });
-      $scope.title = '';
-      $scope.link = '';
+        username: $scope.user.username
+      }
+
+      if(!$scope.title || $scope.title === '') { return; }
+        posts.create(data);
+        $window.location.reload();
+        $scope.title = '';
+        $scope.link = '';
     };
 
     $scope.incrementUpvotes = function(post) {

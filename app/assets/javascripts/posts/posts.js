@@ -1,5 +1,5 @@
 app.factory('posts', ['$http', function($http) {
-    var o = {
+    let o = {
       posts: []
     }
 
@@ -35,7 +35,7 @@ app.factory('posts', ['$http', function($http) {
 
     o.upvoteComment = (post, comment) => {
       return $http.put(`/posts/${post.id}/comments/${comment.id}/upvote.json`).then((data) => {
-        comment.upvote += 1
+        comment.upvotes += 1
       })
     }
 

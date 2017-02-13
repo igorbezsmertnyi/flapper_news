@@ -1,7 +1,7 @@
-const app = angular.module('flapperNews', ['ui.router', 'templates'])
+const app = angular.module('flapperNews', ['ui.router', 'templates', 'Devise'])
 
-app.config(['$stateProvider', '$urlRouterProvider',
-  function($stateProvider, $urlRouterProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', 'AuthProvider',
+  function($stateProvider, $urlRouterProvider, AuthProvider) {
 
     $stateProvider
       .state('home', {
@@ -10,8 +10,13 @@ app.config(['$stateProvider', '$urlRouterProvider',
         controller: 'MainCtrl',
         resolve: {
           postPromise: [
-            'posts', function(posts) {
-              return posts.getAll();
+            'posts', (posts) => {
+              return posts.getAll()
+            }
+          ],
+          userPromise: [
+            'user',  (user) => {
+              return user.getUser()
             }
           ]
         }
@@ -21,10 +26,35 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'posts/_posts.html',
         controller: 'PostsCtrl',
         resolve: {
-          post: ['$stateParams', 'posts', function($stateParams, posts) {
-            return posts.get($stateParams.id);
-          }]
+          post: ['$stateParams', 'posts', ($stateParams, posts) => {
+            return posts.get($stateParams.id)
+          }],
+          userPromise: [
+            'user',  (user) => {
+              return user.getUser()
+            }
+          ]
         }
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: 'auth/_login.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'Auth', function($state, Auth) {
+          Auth.currentUser().then(function (){
+            $state.go('home');
+          })
+        }]
+      })
+      .state('register', {
+        url: '/register',
+        templateUrl: 'auth/_register.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'Auth', function($state, Auth) {
+          Auth.currentUser().then(function (){
+            $state.go('home');
+          })
+        }]
       });
 
     $urlRouterProvider.otherwise('home');

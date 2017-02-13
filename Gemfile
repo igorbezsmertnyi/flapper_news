@@ -26,6 +26,10 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'responders'
 
+gem 'devise'
+
+gem "rails-assets-angular-devise"
+
 gem 'angularjs-rails'
 gem 'angular-rails-templates'
 gem 'angular_rails_csrf'

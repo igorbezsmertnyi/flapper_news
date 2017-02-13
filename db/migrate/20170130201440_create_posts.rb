@@ -3,7 +3,8 @@ class CreatePosts < ActiveRecord::Migration[5.0]
     create_table :posts do |t|
       t.string :title
       t.string :link
-      t.integer :upvotes
+      t.integer :upvotes, default: 0
+      t.string :username
 
       t.timestamps
     end
