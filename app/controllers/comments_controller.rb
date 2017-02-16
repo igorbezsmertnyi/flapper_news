@@ -15,6 +15,11 @@ class CommentsController < ApplicationController
     respond_with post, comment
   end
 
+  def destroy
+    post = Post.find(params[:post_id])
+    comments = post.comments.find(params[:id]).destroy
+  end
+
   private
 
     def find_post

@@ -18,6 +18,9 @@
   <span>
     <a href="#!/posts/{{post.id}}">Comments</a>
   </span>
+  <span class="glyphicon glyphicon-remove" style="float: right" ng-click="removePost(post.id, $index)">
+    Remove
+  </span>
 </div>
 
 <form ng-submit="addPost()"

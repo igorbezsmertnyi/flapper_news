@@ -15,8 +15,8 @@ app.config(['$stateProvider', '$urlRouterProvider', 'AuthProvider',
             }
           ],
           userPromise: [
-            'user',  (user) => {
-              return user.getUser()
+            'user', (user) => {
+              return user.getCurrentUser()
             }
           ]
         }
@@ -30,8 +30,8 @@ app.config(['$stateProvider', '$urlRouterProvider', 'AuthProvider',
             return posts.get($stateParams.id)
           }],
           userPromise: [
-            'user',  (user) => {
-              return user.getUser()
+            'user', (user) => {
+              return user.getCurrentUser()
             }
           ]
         }
@@ -55,8 +55,8 @@ app.config(['$stateProvider', '$urlRouterProvider', 'AuthProvider',
             $state.go('home');
           })
         }]
-      });
+      })
 
-    $urlRouterProvider.otherwise('home');
+    $urlRouterProvider.otherwise('home')
   }
 ]);

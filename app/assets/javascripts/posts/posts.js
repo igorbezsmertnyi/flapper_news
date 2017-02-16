@@ -1,4 +1,4 @@
-app.factory('posts', ['$http', function($http) {
+app.factory('posts', ['$http', ($http) => {
     let o = {
       posts: []
     }
@@ -11,7 +11,17 @@ app.factory('posts', ['$http', function($http) {
 
     o.create = (post) => {
       return $http.post('/posts.json', post).then((data) => {
-        o.posts.push(data)
+        return true
+      }, (err) => {
+        return false
+      })
+    }
+
+    o.delete = (id) => {
+      return $http.delete(`posts/${id}.json`).then((data) => {
+        return true
+      }, (err) => {
+        return false
       })
     }
 
@@ -24,6 +34,14 @@ app.factory('posts', ['$http', function($http) {
     o.get = (id) => {
       return $http.get(`/posts/${id}.json`).then((res) => {
         return res.data
+      })
+    }
+
+    o.deleteComment = (comment) => {
+      return $http.delete(`/posts/${comment.post_id}/comments/${comment.id}.json`).then((data) => {
+        return true
+      }, (err) => {
+        return false
       })
     }
 

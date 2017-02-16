@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   #root to: 'home#index'
   root to: 'application#angular'
 
-  resources :posts, only: [:create, :index, :show] do
-    resources :comments, only: [:show, :create] do
+  resources :posts, only: [:create, :index, :show, :destroy] do
+    resources :comments, only: [:show, :create, :destroy] do
       member do
         put '/upvote' => 'comments#upvote'
       end

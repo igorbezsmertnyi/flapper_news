@@ -19,6 +19,9 @@
   <span style="font-size:20px; margin-left:10px;">
     {{comment.body}}
   </span>
+  <span class="glyphicon glyphicon-remove" style="float: right" ng-click="removeComment(comment, $index)">
+    Remove
+  </span>
 </div>
 <form ng-submit="addComment()"
   style="margin-top:30px;">

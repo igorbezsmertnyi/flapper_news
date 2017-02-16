@@ -1,14 +1,14 @@
 app.factory('user', ['Auth', function(Auth) {
-    let usr = {
+    let o = {
       user: []
     }
 
-    usr.getUser = () => {
+    o.getCurrentUser = () => {
       return Auth.currentUser().then((user) => {
-        usr.user = user
+        o.user = user
       })
     }
 
-    return usr
+    return o
   }
-])
+]);

@@ -20,6 +20,11 @@ class PostsController < ApplicationController
     respond_with post
   end
 
+  def destroy
+    comments = Comment.where(post_id: params[:id]).delete_all
+    post = Post.find(params[:id]).destroy
+  end
+
   private
 
     def post_params
