@@ -2,12 +2,13 @@
   <h1>Flapper News</h1>
 </div>
 
-<div ng-repeat="post in posts | orderBy:'-upvotes'">
+<input type="search" ng-model="searchPost" />
+<div ng-repeat="post in posts | orderBy:'-upvotes' | filter:searchPost">
   <span class="glyphicon glyphicon-thumbs-up"
     ng-click="incrementUpvotes(post)"></span>
   {{post.upvotes}}
   <span style="font-size:20px; margin-left:10px;">
-    posted by <a ng-href="#!/users/{{post.username}}">{{post.username}}</a>
+    posted by <a ng-href="#!/posts/user/{{post.user_id}}">{{post.username}}</a>
     <a ng-show="post.link" href="{{post.link}}">
       {{post.title}}
     </a>
@@ -18,7 +19,7 @@
   <span>
     <a href="#!/posts/{{post.id}}">Comments</a>
   </span>
-  <span class="glyphicon glyphicon-remove" style="float: right" ng-click="removePost(post.id, $index)">
+  <span class="glyphicon glyphicon-remove" style="float: right" ng-click="removePost(post.id, $index)" ng-show="showRm(post)">
     Remove
   </span>
 </div>

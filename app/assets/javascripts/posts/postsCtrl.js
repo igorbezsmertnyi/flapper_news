@@ -24,6 +24,10 @@ app.controller('PostsCtrl', ['$scope', '$stateParams', 'posts', 'post', 'user',
       posts.upvoteComment(post, comment)
     }
 
+    $scope.showRm = (comment) => {
+      return (comment.user_id === userData.id) ? true : false
+    }
+
     $scope.removeComment = (comment, index) => {
       posts.deleteComment(comment).then((status) => {
         if(status) {

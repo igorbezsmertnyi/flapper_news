@@ -1,12 +1,22 @@
-app.factory('posts', ['$http', ($http) => {
+app.factory('posts', ['$http', 'Auth', ($http, Auth) => {
     let o = {
       posts: []
     }
 
     o.getAll = () => {
-      return $http.get('/posts.json').then((data) => {
+      if(Auth.isAuthenticated) {
+        return $http.get('/posts.json').then((data) => {
+          angular.copy(data.data, o.posts)
+        })
+      } else {
+        return {}
+      }
+    }
+
+    o.getUserPost = (id) => {
+      return $http.get(`/posts/user/${id}.json`).then((data) => {
         angular.copy(data.data, o.posts)
-      }) || {}
+      })
     }
 
     o.create = (post) => {

@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate_user!, only: [:create, :upvote]
+  before_filter :authenticate_user!
   before_filter :find_post, only: [:create, :upvote]
 
   def create
@@ -17,7 +17,10 @@ class CommentsController < ApplicationController
 
   def destroy
     post = Post.find(params[:post_id])
-    comments = post.comments.find(params[:id]).destroy
+    comments = post.comments.find(params[:id])
+    if current_user.id.eql? comments.user_id
+      comments = post.comments.find(params[:id]).destroy
+    end
   end
 
   private

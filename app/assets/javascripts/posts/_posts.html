@@ -19,7 +19,7 @@
   <span style="font-size:20px; margin-left:10px;">
     {{comment.body}}
   </span>
-  <span class="glyphicon glyphicon-remove" style="float: right" ng-click="removeComment(comment, $index)">
+  <span class="glyphicon glyphicon-remove" style="float: right" ng-click="removeComment(comment, $index)" ng-show="showRm(comment)">
     Remove
   </span>
 </div>

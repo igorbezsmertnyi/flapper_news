@@ -10,7 +10,10 @@ app.config(['$stateProvider', '$urlRouterProvider', 'AuthProvider',
         controller: 'MainCtrl',
         resolve: {
           postPromise: [
-            'posts', (posts) => {
+            'posts', 'Auth', '$state', (posts, Auth, $state) => {
+              if(!Auth.isAuthenticated) {
+                $state.go('login')
+              }
               return posts.getAll()
             }
           ],
@@ -36,12 +39,22 @@ app.config(['$stateProvider', '$urlRouterProvider', 'AuthProvider',
           ]
         }
       })
+      .state('user-post', {
+        url: '/posts/user/{id}',
+        templateUrl: 'home/_home.html',
+        controller: 'MainCtrl',
+        resolve: {
+          postPromise: ['posts', '$stateParams', (posts, $stateParams) => {
+            return posts.getUserPost($stateParams.id)
+          }]
+        }
+      })
       .state('login', {
         url: '/login',
         templateUrl: 'auth/_login.html',
         controller: 'AuthCtrl',
-        onEnter: ['$state', 'Auth', function($state, Auth) {
-          Auth.currentUser().then(function (){
+        onEnter: ['$state', 'Auth', ($state, Auth) => {
+          Auth.currentUser().then(() => {
             $state.go('home');
           })
         }]
@@ -50,13 +63,13 @@ app.config(['$stateProvider', '$urlRouterProvider', 'AuthProvider',
         url: '/register',
         templateUrl: 'auth/_register.html',
         controller: 'AuthCtrl',
-        onEnter: ['$state', 'Auth', function($state, Auth) {
-          Auth.currentUser().then(function (){
+        onEnter: ['$state', 'Auth', ($state, Auth) => {
+          Auth.currentUser().then(() => {
             $state.go('home');
           })
         }]
       })
 
-    $urlRouterProvider.otherwise('home')
+    $urlRouterProvider.otherwise('login')
   }
 ]);

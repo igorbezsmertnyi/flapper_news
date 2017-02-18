@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!, only: [:create, :upvote]
+  before_filter :authenticate_user!, only: [:create, :upvote, :show, :destroy]
 
   def index
     respond_with Post.all
@@ -13,16 +13,23 @@ class PostsController < ApplicationController
     respond_with Post.find(params[:id])
   end
 
+  def user_posts
+    respond_with Post.where(user_id: params[:id]).all
+  end
+
   def upvote
     post = Post.find(params[:id])
     post.increment!(:upvotes)
-
     respond_with post
   end
 
   def destroy
-    comments = Comment.where(post_id: params[:id]).delete_all
-    post = Post.find(params[:id]).destroy
+    post = Post.find(params[:id])
+    if current_user.id.eql? post.user_id
+      comments = Comment.where(post_id: params[:id])
+      comments.delete_all
+      post.destroy
+    end
   end
 
   private
