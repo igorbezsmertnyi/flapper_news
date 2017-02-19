@@ -3,8 +3,6 @@ app.controller('MainCtrl', ['$scope', 'posts', '$window', 'user',
     $scope.posts = posts.posts
     let userData = user.user
 
-    console.log($scope.posts, userData)
-
     let generatePostId = () => {
       let arr = []
 

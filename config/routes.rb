@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get '/posts/user/:id' => 'posts#user_posts'
 
+  resources :account, only: :index
+
   resources :posts, only: [:create, :index, :show, :destroy] do
     resources :comments, only: [:show, :create, :destroy] do
       member do
