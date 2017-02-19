@@ -24,6 +24,16 @@ app.config(['$stateProvider', '$urlRouterProvider', 'AuthProvider',
           ]
         }
       })
+      .state('account', {
+        url: '/account',
+        templateUrl: 'page_account/_page_account.html',
+        controller: 'PageAccountCtrl',
+        resolve: {
+          userPromise: ['user', (user) => {
+            return user.getCurrentUser()
+          }]
+        }
+      })
       .state('posts', {
         url: '/posts/{id}',
         templateUrl: 'posts/_posts.html',
