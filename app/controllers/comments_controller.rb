@@ -1,10 +1,9 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_post, only: [:create, :upvote]
 
   def create
     post = Post.find(params[:post_id])
-    comment = post.comments.create(comment_params.merge(user_id: current_user.id))
+    comment = post.comments.create(comment_params.merge(user_id: current_user.id, user: current_user))
     respond_with post, comment
   end
 
@@ -25,12 +24,8 @@ class CommentsController < ApplicationController
 
   private
 
-    def find_post
-      post = Post.find(params[:post_id])
-    end
-
     def comment_params
-     params.require(:comment).permit(:body, :author)
+     params.require(:comment).permit(:body)
     end
 
     def as_json(options = {})

@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 20170211215502) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "body"
-    t.string   "author"
     t.integer  "upvotes",    default: 0
     t.integer  "post_id"
     t.datetime "created_at",             null: false
@@ -31,7 +30,6 @@ ActiveRecord::Schema.define(version: 20170211215502) do
     t.string   "title"
     t.string   "link"
     t.integer  "upvotes",    default: 0
-    t.string   "username"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "user_id"

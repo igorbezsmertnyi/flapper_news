@@ -9,3 +9,47 @@
     {{user.email}}
   </p>
 </div>
+
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-md-3">
+      <form ng-submit="changePassword(password)">
+        <h4>Change password</h4>
+        <div class="form-group">
+          <label for="usr">New Password:</label>
+          <input type="text" class="form-control" id="usr" ng-model="passNew">
+          <label for="usr">Confirm Password:</label>
+          <input type="text" class="form-control" id="usr" ng-model="passConfirm">
+        </div>
+        <button type="submit" class="btn btn-primary">Change</button>
+      </form>
+    </div>
+    <div class="col-md-3">
+      <form ng-submit="changeEmail()">
+        <h4>Change email</h4>
+        <div class="form-group">
+          <label for="usr">New Email:</label>
+          <input type="text" class="form-control" id="usr" ng-model="newEmail">
+        </div>
+        <!-- <div class="form-group">
+          <label for="usr">New Email:</label>
+          <input type="text" class="form-control" id="usr" ng-model="newEmail">
+          <label for="usr">Confirm Email:</label>
+          <input type="text" class="form-control" id="usr">
+        </div> -->
+        <button type="submit" class="btn btn-primary">Change</button>
+      </form>
+    </div>
+    <div class="col-md-3">
+      <form ng-submit="changeUsername()">
+        <h4>Change Username</h4>
+        <div class="form-group">
+          <label for="usr">New username:</label>
+          <input type="text" class="form-control" id="usr" ng-model="newName">
+          {{newUser}}
+        </div>
+        <button type="submit" class="btn btn-primary">Change</button>
+      </form>
+    </div>
+  </div>
+</div>

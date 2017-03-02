@@ -3,7 +3,9 @@ app.controller('MainCtrl', ['$scope', 'posts', '$window', 'user',
     $scope.posts = posts.posts
     let userData = user.user
 
-    let generatePostId = () => {
+    console.log($scope.posts)
+
+    const generatePostId = () => {
       let arr = []
 
       $scope.posts.forEach((val, index) => {
@@ -17,17 +19,28 @@ app.controller('MainCtrl', ['$scope', 'posts', '$window', 'user',
       let data = {
         title: $scope.title,
         link: $scope.link,
-        username: userData.username,
         user_id: userData.id,
         upvotes: 0,
         id: generatePostId()
       }
 
+      let tmpUsr = {
+        title: $scope.title,
+        link: $scope.link,
+        user_id: userData.id,
+        upvotes: 0,
+        id: generatePostId(),
+        user: {
+          username: userData.username
+        }
+      }
+
       if(!$scope.title || $scope.title === '') { return }
         posts.create(data).then((status) => {
+          console.log(status)
           if(status) {
             alert('Successfuly posted')
-            $scope.posts.push(data)
+            $scope.posts.push(tmpUsr)
             $scope.title = ''
             $scope.link = ''
           } else {

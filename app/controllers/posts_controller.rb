@@ -10,7 +10,8 @@ class PostsController < ApplicationController
   end
 
   def show
-    respond_with Post.find(params[:id])
+    post = Post.find(params[:id])
+    respond_with post
   end
 
   def user_posts
@@ -35,11 +36,11 @@ class PostsController < ApplicationController
   private
 
     def post_params
-      params.require(:post).permit(:link, :title, :username)
+      params.require(:post).permit(:link, :title)
     end
 
     def as_json(options = {})
-      super(options.merge(include: [:user, comments: {include: :user}]))
+      super(options.merge(include: [:user, comments: [include: :user ]]))
     end
 
 end
