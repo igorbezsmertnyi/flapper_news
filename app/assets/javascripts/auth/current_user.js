@@ -11,4 +11,4 @@ app.factory('user', ['Auth', function(Auth) {
 
     return o
   }
-]);
+])
