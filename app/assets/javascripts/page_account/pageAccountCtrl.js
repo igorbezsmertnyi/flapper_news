@@ -1,6 +1,11 @@
-app.controller('PageAccountCtrl', ['$scope', 'user', 'Auth', 'account', '$state', '$window',
-  function($scope, user, Auth, account, $state, $window) {
+app.controller('PageAccountCtrl', ['$scope', 'user', 'Auth', 'account', '$state', '$window', 'FileUploader',
+  function($scope, user, Auth, account, $state, $window, FileUploader) {
     $scope.user = user.user
+
+    $scope.uploader = new FileUploader({
+      url: '/account/update/avatar',
+      method: 'PUT'
+    })
 
     $scope.changePassword = () => {
       let passParams = {
@@ -11,10 +16,6 @@ app.controller('PageAccountCtrl', ['$scope', 'user', 'Auth', 'account', '$state'
       account.updatePass(passParams).then((ststus) => {
         console.log(status)
         Auth.logout()
-        // $scope.$on('devise:logout', (e, user) => {
-        //   $scope.user = {}
-        //   $state.go('login')
-        // })
       })
     }
 

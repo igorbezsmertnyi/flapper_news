@@ -2,6 +2,7 @@
   <h3>Account</h3>
 </div>
 <div class="col-md-12 text-center">
+  <img ng-src="{{user.avatar.url}}" style="width:250px;height:250px;border-radius:130px;object-fit:cover" />
   <p>
     {{user.username}}
   </p>
@@ -12,6 +13,15 @@
 
 <div class="col-md-12">
   <div class="row">
+    <div class="col-md-12">
+      <input type="file" nv-file-select uploader="uploader"/>
+      <ul>
+        <li ng-repeat="item in uploader.queue">
+            Name: <span ng-bind="item.file.name"></span><br/>
+            <button ng-click="item.upload()">upload</button>
+        </li>
+      </ul>
+    </div>
     <div class="col-md-3">
       <form ng-submit="changePassword(password)">
         <h4>Change password</h4>
