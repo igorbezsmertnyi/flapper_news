@@ -1,4 +1,4 @@
-const app = angular.module('flapperNews', ['ui.router', 'templates', 'Devise'])
+const app = angular.module('flapperNews', ['ui.router', 'templates', 'Devise', 'angularFileUpload'])
 
 app.config(['$stateProvider', '$urlRouterProvider', 'AuthProvider',
   function($stateProvider, $urlRouterProvider, AuthProvider) {
